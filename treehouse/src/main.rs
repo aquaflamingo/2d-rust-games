@@ -34,21 +34,17 @@ fn whats_ur_name() -> String {
 fn main() {
     println!("Hello what is your name?");
     let name = whats_ur_name();
-    let mut allow_them_in = false;
 
     let the_list = [
         Visitor::new("robert", "how u doing Robert"), 
         Visitor::new("dave", "Good to see you dave"), 
-        Visitor::new("frankie", "Who invited Frankie!"),
+        Visitor::new("frankie", "Who invited Frankie! Get in here you crazy"),
     ];
 
     let known = the_list.iter().find(|v| v.name == name);
 
-    // TODO 
-
-    if allow_them_in {
-        println!("Hey {}", name)
-    } else {
-        println!("Sorry you're not on the list")
+    match known {
+        Some(v) => v.greet(),
+        None => print!("You are not on the visitor list, get out!")
     }
 }
