@@ -1,6 +1,7 @@
 use bracket_lib::prelude::*;
 
 mod map;
+mod map_builder;
 mod player;
 
 // prelude is a common and minimal set of imports/exports 
@@ -12,6 +13,7 @@ mod prelude {
     // in this case we are referencing the +map.rs+ file.
     pub use crate::map::*;
     pub use crate::player::*;
+    pub use crate::map_builder::*;
 }
 
 use prelude::*;
