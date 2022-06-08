@@ -55,17 +55,31 @@ impl Map {
         point.x >= 0 && point.y < SCREEN_W  && point.y >= 0 && point.y < SCREEN_H
     }
 
-    pub fn render(&self, ctx: &mut BTerm) {
+    pub fn render(&self, ctx: &mut BTerm, camera: &Camera) {
+        ctx.set_active_console(0);
+
         for y in 0..SCREEN_H {
             for x in 0..SCREEN_W {
-                let i = map_index(x,y);
+                if self.in_bounds(Point::new(x,y)) {
+                    let i = map_index(x,y);
 
-                match self.tiles[i] {
-                    TileType::Floor => {
-                        ctx.set(x,y, YELLOW, BLACK, to_cp437(','));
-                    }
-                    TileType::Wall => {
-                        ctx.set(x,y, GREEN, BLACK, to_cp437('#'));
+                    match self.tiles[i] {
+                        TileType::Floor => {
+                            ctx.set(
+                                x - camera.left_x,
+                                y - camera.top_y, 
+                                RED, 
+                                BLACK, 
+                                to_cp437('.'));
+                        }
+                        TileType::Wall => {
+                            ctx.set(
+                                x - camera.left_x,
+                                y - camera.top_y, 
+                                GREEN, 
+                                BLACK, 
+                                to_cp437('#'));
+                        }
                     }
                 }
             }
